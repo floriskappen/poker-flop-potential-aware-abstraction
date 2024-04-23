@@ -1,16 +1,18 @@
 use crate::earth_movers_distance::earth_movers_distance;
 
 pub fn get_sorted_distances_and_ordered_clusters(
-    centroids: &Vec<Vec<f32>>) -> (Vec<Vec<f64>>, Vec<Vec<usize>>) {
+    centroids: &Vec<Vec<f64>>) -> (Vec<Vec<f64>>, Vec<Vec<usize>>) {
     
     let num_clusters = centroids.len();
     let mut sorted_distances = vec![vec![]; num_clusters];
     let mut ordered_clusters = vec![vec![]; num_clusters];
 
+    log::info!("There are {} clusters in this abstraction", num_clusters);
+
     for i in 0..num_clusters {
         // Collect EMD distances and indices for all clusters
         let mut distances: Vec<(usize, f64)> = (0..num_clusters)
-            .map(|j| (j, earth_movers_distance(&centroids[i].iter().map(|&el| el as f64).collect(), &centroids[j].iter().map(|&el| el as f64).collect())))
+            .map(|j| (j, earth_movers_distance(&centroids[i], &centroids[j])))
             .collect();
 
         // Sort based on distance

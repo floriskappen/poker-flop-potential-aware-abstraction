@@ -8,15 +8,17 @@ mod earth_movers_distance_approximation {
     pub mod precomputation;
     pub mod algorithm;
 }
+mod logger;
 
 use rayon::prelude::*;
 
 use load::{load_flop_hand_strength_histograms, load_turn_round_centroids};
 use save::save_potential_aware_emd_matrix;
-use crate::earth_movers_distance_approximation::{algorithm::approximate_emd, precomputation::get_sorted_distances_and_ordered_clusters};
+use crate::{earth_movers_distance_approximation::{algorithm::approximate_emd, precomputation::get_sorted_distances_and_ordered_clusters}, logger::init_logger};
 
 
 fn main() {
+    init_logger().expect("Failed to initialize logger");
     let flop_hand_strength_histograms = load_flop_hand_strength_histograms().expect("Failed to load flop_hand_strength_histograms");
     let turn_centroids = load_turn_round_centroids().expect("Failed to load turn_centroids");
 

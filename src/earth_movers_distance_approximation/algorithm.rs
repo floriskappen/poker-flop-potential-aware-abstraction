@@ -1,7 +1,7 @@
 
 pub fn approximate_emd(
     point: &[u8],
-    centroid: &[f32],
+    centroid: &[f64],
     sorted_distances: &Vec<Vec<f64>>,
     ordered_clusters: &Vec<Vec<usize>>
 ) -> f64 {
